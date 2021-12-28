@@ -16,6 +16,8 @@ public class Customer {
     private String customerAddress;
     private String customerAccountType;
 
+    //test
+
     public Long getCustomerId() {
         return customerId;
     }
