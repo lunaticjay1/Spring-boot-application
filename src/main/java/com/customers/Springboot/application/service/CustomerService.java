@@ -15,4 +15,6 @@ public interface CustomerService {
     public void deleteCustomerById(Long customerId);
 
     public Customer updateCustomer(Long customerId, Customer customer);
+
+    public Customer getCustomerByName(String customerName);
 }

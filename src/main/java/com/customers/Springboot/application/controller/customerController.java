@@ -40,4 +40,9 @@ public class customerController {
     public Customer updateCustomer(@PathVariable("id") Long customerId, @RequestBody Customer customer){
         return customerService.updateCustomer(customerId, customer);
     }
+
+    @GetMapping("/getCustomers/name/{name}")
+    public Customer getCustomerByName(@PathVariable("name") String customerName){
+        return customerService.getCustomerByName(customerName);
+    }
 }
