@@ -2,12 +2,14 @@ package com.customers.Springboot.application.service;
 
 
 import com.customers.Springboot.application.entity.Customer;
+import com.customers.Springboot.application.error.CustomerNotFoundException;
 import com.customers.Springboot.application.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -28,8 +30,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerById(Long customerId) {
-        return customerRepository.findById(customerId).get();
+    public Customer getCustomerById(Long customerId) throws CustomerNotFoundException {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        if (!customer.isPresent()){
+            throw new CustomerNotFoundException("Customer Not Available");
+        }
+        return customer.get();
     }
 
     @Override

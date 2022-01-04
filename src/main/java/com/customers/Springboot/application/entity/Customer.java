@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Customer {
@@ -13,7 +15,8 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
-
+    @NotBlank(message = "customerName cannot be blank")
+    @Size(min = 4, max = 32, message = "customerName cannot be lessthan 4 or greater than 32 length")
     private String customerName;
     private String customerAddress;
     private String customerAccountType;
