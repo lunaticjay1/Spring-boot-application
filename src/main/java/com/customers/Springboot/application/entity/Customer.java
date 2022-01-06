@@ -15,8 +15,8 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
-    @NotBlank(message = "customerName cannot be blank")
-    @Size(min = 4, max = 32, message = "customerName cannot be lessthan 4 or greater than 32 length")
+//    @NotBlank(message = "customerName cannot be blank")
+//    @Size(min = 4, max = 32, message = "customerName cannot be lessthan 4 or greater than 32 length")
     private String customerName;
     private String customerAddress;
     private String customerAccountType;

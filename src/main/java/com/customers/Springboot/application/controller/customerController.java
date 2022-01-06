@@ -3,6 +3,7 @@ package com.customers.Springboot.application.controller;
 
 import com.customers.Springboot.application.entity.Customer;
 import com.customers.Springboot.application.error.CustomerNotFoundException;
+import com.customers.Springboot.application.error.NameIsRequiredException;
 import com.customers.Springboot.application.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,11 @@ public class customerController {
     private CustomerService customerService;
 
     @PostMapping("/customers")
-    public Customer saveCustomer(@Valid @RequestBody Customer customer){
+    public Customer saveCustomer(@RequestBody Customer customer) throws NameIsRequiredException {
+
+        if (customer.getCustomerName() == null || customer.getCustomerName() == ""){
+            throw new NameIsRequiredException("Customer Name is required");
+        }
         return customerService.saveCustomer(customer);
 
     }
