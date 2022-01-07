@@ -40,17 +40,14 @@ public class customerController {
     @DeleteMapping("/getCustomers/{id}")
     public String deleteCustomerById(@PathVariable("id") Long customerId){
         customerService.deleteCustomerById(customerId);
-        return "Customer deleted succesfully";
+//        return "Customer deleted succesfully";
+        return "Customer deleted successfully";
     }
 
     @PutMapping("/getCustomers/{id}")
-    public ResponseEntity<Object> updateCustomer(@PathVariable("id") Long customerId, @RequestBody Customer customer) {
-        Customer existingCustomer = customerService.getCustomerById(customerId);
-        if (existingCustomer != null){
-            return new ResponseEntity<Object>(customerService.updateCustomer(customerId, customer), HttpStatus.OK);
-        }
-        else
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found with ID " + customerId);
+    public Customer updateCustomer(@PathVariable("id") Long customerId, @RequestBody Customer customer) {
+
+        return customerService.updateCustomer(customerId, customer);
     }
 
     @GetMapping("/getCustomers/name/{name}")

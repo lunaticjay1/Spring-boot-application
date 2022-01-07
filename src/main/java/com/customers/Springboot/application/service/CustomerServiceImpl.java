@@ -2,9 +2,12 @@ package com.customers.Springboot.application.service;
 
 
 import com.customers.Springboot.application.entity.Customer;
+import com.customers.Springboot.application.exception.CustomerNotFoundException;
 import com.customers.Springboot.application.repository.CustomerRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,18 +34,29 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerById(Long customerId){
-        return customerRepository.findById(customerId).orElse(null);
+        Customer cst = customerRepository.findById(customerId).orElse(null);
+        if (cst == null){
+            throw new CustomerNotFoundException("Customer not found with ID " + customerId, "CUS1001");
+        }
+        return cst;
     }
 
     @Override
     public void deleteCustomerById(Long customerId) {
+        Customer cst = customerRepository.findById(customerId).orElse(null);
+        if (cst == null){
+            throw new CustomerNotFoundException("Customer not found with ID " + customerId, "CUS1002");
+        }
         customerRepository.deleteById(customerId);
     }
 
     @Override
     public Customer updateCustomer(Long customerId, Customer customer) {
-        Customer cst = customerRepository.findById(customerId).get();
 
+        Customer cst = customerRepository.findById(customerId).orElse(null);
+        if (cst == null){
+            throw new CustomerNotFoundException("Customer not found with ID " + customerId, "CUS1003");
+        }
         if (Objects.nonNull(customer.getCustomerName()) && (!StringUtils.isBlank(customer.getCustomerName()))){
             cst.setCustomerName(customer.getCustomerName());
         }

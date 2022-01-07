@@ -18,15 +18,15 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
-    @NotNull(message = "Name cannot be null, it is a required field")
+    @NotNull(message = "Name cannot be null, it is a required field-CID1001")
     @Size(min = 4, max = 32)
     public String customerName;
 
-    @NotNull(message = "Address cannot be null, it is a required field")
+    @NotNull(message = "Address cannot be null, it is a required field-CAD1001")
     @Size(min = 4, max = 32)
     public String customerAddress;
 
-    @NotNull(message = "Account type cannot be null")
+    @NotNull(message = "Account type cannot be null-CAT1001")
     @Pattern(regexp = "CHECKING|SAVINGS",  flags = Pattern.Flag.CASE_INSENSITIVE,message = "Customer account type should be CHECKING or SAVINGS")
 
     private String customerAccountType;
