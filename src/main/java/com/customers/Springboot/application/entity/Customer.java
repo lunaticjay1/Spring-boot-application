@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Customer {
@@ -15,10 +18,17 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long customerId;
-//    @NotBlank(message = "customerName cannot be blank")
-//    @Size(min = 4, max = 32, message = "customerName cannot be lessthan 4 or greater than 32 length")
-    private String customerName;
-    private String customerAddress;
+    @NotNull(message = "Name cannot be null, it is a required field")
+    @Size(min = 4, max = 32)
+    public String customerName;
+
+    @NotNull(message = "Address cannot be null, it is a required field")
+    @Size(min = 4, max = 32)
+    public String customerAddress;
+
+    @NotNull(message = "Account type cannot be null")
+    @Pattern(regexp = "CHECKING|SAVINGS",  flags = Pattern.Flag.CASE_INSENSITIVE,message = "Customer account type should be CHECKING or SAVINGS")
+
     private String customerAccountType;
 
     //test

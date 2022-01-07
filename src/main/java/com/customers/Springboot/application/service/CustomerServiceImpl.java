@@ -2,8 +2,8 @@ package com.customers.Springboot.application.service;
 
 
 import com.customers.Springboot.application.entity.Customer;
-import com.customers.Springboot.application.error.CustomerNotFoundException;
 import com.customers.Springboot.application.repository.CustomerRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,12 +30,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerById(Long customerId) throws CustomerNotFoundException {
-        Optional<Customer> customer = customerRepository.findById(customerId);
-        if (!customer.isPresent()){
-            throw new CustomerNotFoundException("Customer Not Available");
-        }
-        return customer.get();
+    public Customer getCustomerById(Long customerId){
+        return customerRepository.findById(customerId).orElse(null);
     }
 
     @Override
@@ -47,13 +43,13 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer updateCustomer(Long customerId, Customer customer) {
         Customer cst = customerRepository.findById(customerId).get();
 
-        if (Objects.nonNull(customer.getCustomerName()) && (customer.getCustomerName() != "")){
+        if (Objects.nonNull(customer.getCustomerName()) && (!StringUtils.isBlank(customer.getCustomerName()))){
             cst.setCustomerName(customer.getCustomerName());
         }
-        if (Objects.nonNull(customer.getCustomerAddress()) && (customer.getCustomerAddress() != "")){
+        if (Objects.nonNull(customer.getCustomerAddress()) && (!StringUtils.isBlank(customer.getCustomerAddress()))){
             cst.setCustomerAddress(customer.getCustomerAddress());
         }
-        if (Objects.nonNull(customer.getCustomerAccountType()) && (customer.getCustomerAccountType() != "")){
+        if (Objects.nonNull(customer.getCustomerAccountType()) && (!StringUtils.isBlank(customer.getCustomerAccountType()))){
             cst.setCustomerAccountType(customer.getCustomerAccountType());
         }
 
